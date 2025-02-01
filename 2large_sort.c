@@ -56,3 +56,32 @@ int	*sorted_bubble(int *arr, int len)
 	}
 	return (arr);
 }
+
+int	cal_offset(t_stack *stack_a)
+{
+	int	size;
+	int	offset;
+
+	size = stack_len(stack_a);
+	if (size <= 150)
+		offset = size / 6;
+	else if (size <= 400)
+		offset = size / 11;
+	else
+		offset = size / 14;
+	return (offset);
+}
+
+int	get_index(int *arr, int value, int size)
+{
+	int	i;
+
+	i = 0;
+	while (i < size)
+	{
+		if (value == arr[i])
+			return (i);
+		i++;
+	}
+	return (-1);
+}
