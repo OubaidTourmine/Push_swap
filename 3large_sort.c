@@ -44,3 +44,27 @@ void	rotate_to_max(t_stack **stack_b, int max_index, int size)
 		}
 	}
 	else
+	{
+		max_index = size - max_index;
+		while (max_index > 0)
+		{
+			rrb(stack_b);
+			max_index--;
+		}
+	}
+}
+
+void	push_to_a(t_stack **stack_a, t_stack **stack_b)
+{
+	int	max_value;
+	int	max_index;
+	int	size;
+
+	while (*stack_b)
+	{
+		find_max_value_and_index(*stack_b, &max_value, &max_index);
+		size = stack_len(*stack_b);
+		rotate_to_max(stack_b, max_index, size);
+		pa(stack_a, stack_b);
+	}
+}
