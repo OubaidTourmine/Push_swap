@@ -21,3 +21,26 @@ void	find_max_value_and_index(t_stack *stack_b, int *mvalue, int *mindex)
 	*mvalue = curr->value;
 	*mindex = 0;
 	i = 0;
+	while (curr)
+	{
+		if (curr->value > *mvalue)
+		{
+			*mvalue = curr->value;
+			*mindex = i;
+		}
+		curr = curr->next;
+		i++;
+	}
+}
+
+void	rotate_to_max(t_stack **stack_b, int max_index, int size)
+{
+	if (max_index < size / 2)
+	{
+		while (max_index > 0)
+		{
+			rb(stack_b);
+			max_index--;
+		}
+	}
+	else
