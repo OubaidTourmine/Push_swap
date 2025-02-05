@@ -84,3 +84,47 @@ void	store_numbers(char **av, int *stored_nums)
 {
 	int	i;
 	int	j;
+	int	num_count;
+
+	i = 0;
+	j = 0;
+	num_count = 0;
+	while (av[i])
+	{
+		j = process_argument(av[i], stored_nums, &num_count);
+		if (j == 0)
+		{
+			write(2, "Error\n", 6);
+			free(stored_nums);
+			exit(1);
+		}
+		i++;
+	}
+}
+
+void	parsing(int ac, char **av, t_stack **stack_a, t_stack **stack_b)
+{
+	int	*stored_nums;
+	int	num_count;
+
+	ac--;
+	av++;
+	num_count = count_total_numbers(av);
+	stored_nums = malloc(sizeof(int) * num_count);
+	if (!stored_nums)
+		exit(0);
+	store_numbers(av, stored_nums);
+	while (0 < num_count)
+	{
+		push_stack(stored_nums[num_count - 1], stack_a);
+		num_count--;
+	}
+	if (ft_is_sorted(*stack_a))
+	{
+		free(stored_nums);
+		ft_free_stack(stack_a);
+		exit(0);
+	}
+	numbers(stack_a, stack_b);
+	free(stored_nums);
+}
