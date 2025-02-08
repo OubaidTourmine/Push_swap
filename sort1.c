@@ -27,3 +27,32 @@ void	sa(t_stack **stack_a)
 	second->prev = NULL;
 	if (first->next != NULL)
 		first->next->prev = first;
+	*stack_a = second;
+	write(1, "sa\n", 3);
+}
+
+void	sb(t_stack **stack_b)
+{
+	t_stack	*first;
+	t_stack	*second;
+
+	if (stack_b == NULL || *stack_b == NULL || (*stack_b)->next == NULL)
+		return ;
+	first = *stack_b;
+	second = (*stack_b)->next;
+	first->next = second->next;
+	first->prev = second;
+	second->next = first;
+	second->prev = NULL;
+	if (first->next != NULL)
+		first->next->prev = first;
+	*stack_b = second;
+	write(1, "sb\n", 3);
+}
+
+void	ss(t_stack **stack_a, t_stack **stack_b)
+{
+	sa(stack_a);
+	sb(stack_b);
+	write(1, "ss\n", 3);
+}
