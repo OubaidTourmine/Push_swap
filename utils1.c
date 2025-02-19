@@ -39,3 +39,44 @@ void	ft_free_stack(t_stack **stack)
 	t_stack	*current;
 	t_stack	*next;
 
+	if (!stack || !*stack)
+		return ;
+	current = *stack;
+	while (current)
+	{
+		next = current->next;
+		free(current);
+		current = next;
+	}
+	*stack = NULL;
+}
+
+t_pos	*minimum_value(t_stack *stack_x)
+{
+	t_pos	*pos;
+	int		i;
+
+	i = 0;
+	pos = malloc(sizeof(t_pos));
+	pos->value = stack_x->value;
+	pos->pos = i;
+	while (stack_x)
+	{
+		if (stack_x->value < pos->value)
+		{
+			pos->value = stack_x->value;
+			pos->pos = i;
+		}
+		stack_x = stack_x->next;
+		i++;
+	}
+	return (pos);
+}
+
+// void	ft_print_stack(t_stack *stack)
+// {
+// 	if (!stack)
+// 		return ;
+// 	printf("%d\n", stack->value);
+// 	ft_print_stack(stack->next);
+// }
