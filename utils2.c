@@ -46,3 +46,52 @@ int	ft_isdigit(char *str)
 	i = 0;
 	if (str[i] == '-' || str[i] == '+')
 		i++;
+	if (!str[i])
+		return (0);
+	while (str[i])
+	{
+		if (!(str[i] >= 48 && str[i] <= 57))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	valid(char **av)
+{
+	int	i;
+
+	i = 0;
+	while (av[i])
+	{
+		if (ft_isdigit(av[i]) == 0)
+		{
+			exit(0);
+		}
+		i++;
+	}
+	return (1);
+}
+
+void	error_and_free(char **numbers, int *stored_nums)
+{
+	ft_free(numbers);
+	free(stored_nums);
+	write(2, "Error\n", 6);
+	exit(1);
+}
+
+int	stack_len(t_stack *a)
+{
+	int		count;
+	t_stack	*curr;
+
+	count = 0;
+	curr = a;
+	while (curr)
+	{
+		count++;
+		curr = curr->next;
+	}
+	return (count);
+}
