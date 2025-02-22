@@ -70,3 +70,40 @@ void	pars_bonus(int ac, char **av, t_stack **stack_a)
 	int	*stored_nums;
 	int	num_count;
 
+	ac--;
+	av++;
+	num_count = count_total_numbers(av);
+	stored_nums = malloc(sizeof(int) * num_count);
+	if (!stored_nums)
+		exit(0);
+	store_numbers(av, stored_nums);
+	while (0 < num_count)
+	{
+		push_stack(stored_nums[num_count - 1], stack_a);
+		num_count--;
+	}
+	free(stored_nums);
+}
+
+int	main(int ac, char **av)
+{
+	t_stack	*stack_a;
+	t_stack	*stack_b;
+
+	stack_a = NULL;
+	stack_b = NULL;
+	if (ac == 1)
+		exit(1);
+	pars_bonus(ac, av, &stack_a);
+	if (ft_helper(&stack_a, &stack_b))
+	{
+		if (ft_is_sorted(stack_a) == 1 && ft_is_empty(stack_b) == 1)
+			write(1, "OK\n", 3);
+		else
+			write(1, "KO\n", 3);
+	}
+	else
+		write(2, "Error\n", 6);
+	ft_free_stack(&stack_a);
+	ft_free_stack(&stack_b);
+}
