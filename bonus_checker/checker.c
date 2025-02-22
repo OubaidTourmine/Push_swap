@@ -34,3 +34,39 @@ int	ft_check_actions(char *line, t_stack **stack_a, t_stack **stack_b)
 	else if (ft_strcmp(line, "rrr\n") == 0)
 		rrr(stack_a, stack_b);
 	else if (ft_strcmp(line, "pb\n") == 0)
+		pb(stack_b, stack_a);
+	else if (ft_strcmp(line, "pa\n") == 0)
+		pa(stack_a, stack_b);
+	else
+		return (0);
+	return (1);
+}
+
+int	ft_helper(t_stack **stack_a, t_stack **stack_b)
+{
+	char	*line;
+
+	line = NULL;
+	while (1)
+	{
+		line = get_next_line(0);
+		if (!line)
+		{
+			free(line);
+			return (1);
+		}
+		if (ft_check_actions(line, stack_a, stack_b))
+			free(line);
+		else
+		{
+			free(line);
+			return (0);
+		}
+	}
+}
+
+void	pars_bonus(int ac, char **av, t_stack **stack_a)
+{
+	int	*stored_nums;
+	int	num_count;
+
