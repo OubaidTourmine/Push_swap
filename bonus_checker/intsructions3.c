@@ -23,3 +23,29 @@ void	ra(t_stack **stack_a)
 	while (last->next != NULL)
 		last = last->next;
 	first = *stack_a;
+	*stack_a = (*stack_a)->next;
+	first->next = NULL;
+	last->next = first;
+}
+
+void	rb(t_stack **stack_b)
+{
+	t_stack	*first;
+	t_stack	*last;
+
+	if (!*stack_b || !(*stack_b)->next)
+		return ;
+	last = *stack_b;
+	while (last->next != NULL)
+		last = last->next;
+	first = *stack_b;
+	*stack_b = (*stack_b)->next;
+	first->next = NULL;
+	last->next = first;
+}
+
+void	rr(t_stack **stack_a, t_stack **stack_b)
+{
+	ra(stack_a);
+	rb(stack_b);
+}
