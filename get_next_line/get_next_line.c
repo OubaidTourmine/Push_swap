@@ -42,3 +42,25 @@ static char	*fill_line_buffer(int fd, char *left_c, char *buffer)
 
 char	*get_next_line(int fd)
 {
+	static char	*left_c;
+	char		*buffer;
+	char		*line;
+	char		*temp;
+	int			i;
+
+	i = 0;
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (NULL);
+	left_c = fill_line_buffer(fd, left_c, buffer);
+	free(buffer);
+	if (left_c == NULL)
+		return (NULL);
+	while (left_c[i] != '\n' && left_c[i] != '\0')
+		i++;
+	line = ft_substr(left_c, 0, i + 1);
+	temp = ft_substr(left_c, i + 1, ft_strlen(left_c));
+	free(left_c);
+	left_c = temp;
+	return (line);
+}
