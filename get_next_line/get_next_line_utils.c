@@ -60,3 +60,66 @@ size_t	ft_strlen(const char *s)
 
 	i = 0;
 	while (s[i])
+	{
+		i++;
+	}
+	return (i);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	size_t	i;
+	size_t	length;
+	char	*result;
+
+	i = 0;
+	if (s == NULL)
+		return (NULL);
+	length = ft_strlen(s);
+	if (start >= length)
+		return (NULL);
+	if (length - start < len)
+	{
+		len = length - start;
+	}
+	result = (char *)malloc(len + 1);
+	if (result == NULL)
+		return (NULL);
+	while (i < len)
+	{
+		result[i] = s[start];
+		i++;
+		start++;
+	}
+	result[i] = '\0';
+	return (result);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	int		i;
+	int		h;
+	int		len;
+	char	*ss;
+
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	i = 0;
+	h = 0;
+	len = (ft_strlen(s1) + ft_strlen(s2));
+	ss = malloc((len + 1) * sizeof(char));
+	if (ss == NULL)
+		return (NULL);
+	while (s1[h])
+	{
+		ss[i++] = s1[h++];
+	}
+	h = 0;
+	i = ft_strlen(s1);
+	while (s2[h])
+	{
+		ss[i++] = s2[h++];
+	}
+	ss[i] = '\0';
+	return (ss);
+}
